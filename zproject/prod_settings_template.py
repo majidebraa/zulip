@@ -101,13 +101,6 @@ EXTERNAL_HOST = "zulip.example.com"
 ## confirmation emails when ADD_TOKENS_TO_NOREPLY_ADDRESS=False.
 # NOREPLY_EMAIL_ADDRESS = "noreply@example.com"
 
-## Emails sent by the Zulip server will use a sender name starting
-## with INSTALLATION_NAME. The default is EXTERNAL_HOST. If INSTALLATION_NAME is
-## "zulip.example.com", email senders names will include:
-## * "zulip.example.com notifications" (message notification emails).
-## * "zulip.example.com account security" (account security emails).
-# INSTALLATION_NAME = "My Zulip Server"
-
 ## Many countries and bulk mailers require certain types of email to display
 ## a physical mailing address to comply with anti-spam legislation.
 ## Non-commercial and non-public-facing installations are unlikely to need
@@ -158,7 +151,7 @@ AUTHENTICATION_BACKENDS: Tuple[str, ...] = (
     # "zproject.backends.SAMLAuthBackend",  # SAML, setup below
     # "zproject.backends.ZulipLDAPAuthBackend",  # LDAP, setup below
     # "zproject.backends.ZulipRemoteUserBackend",  # Local SSO, setup docs on readthedocs
-    # "zproject.backends.GenericOpenIdConnectBackend",  # Generic OIDC integration, setup below
+    "zproject.backends.GenericOpenIdConnectBackend",  # Generic OIDC integration, setup below
 )
 
 ## LDAP integration.
@@ -382,21 +375,22 @@ SOCIAL_AUTH_OIDC_ENABLED_IDPS: Dict[str, Any] = {
         ## The base path to the provider's OIDC API. Zulip fetches the
         ## IdP's configuration from the discovery endpoint, which will be
         ## "{oidc_url}/.well-known/openid-configuration".
-        "oidc_url": "https://example.com/api/openid",
+        "oidc_url": "http://172.25.143.167:8080/realms/irisa",
         ## The display name, used for "Log in with <display name>" buttons.
-        "display_name": "Example",
+        "display_name": "Irisa Key Cloak",
         ## Optional: URL of an icon to decorate "Log in with <display name>" buttons.
         "display_icon": None,
         ## The client_id and secret provided by your OIDC IdP. To keep
         ## settings.py free of secrets, the get_secret call below
         ## reads the secret with the specified name from zulip-secrets.conf.
-        "client_id": "<your client id>",
-        "secret": get_secret("social_auth_oidc_secret"),
+        "client_id": "zulip",
+        # "secret": get_secret("social_auth_oidc_secret"),
+        "secret": "DCvUpEcP7E7piC79eVFcQHyBiiYFwgvi",
         ## Determines whether "Log in with OIDC" will automatically
         ## register a new account if one does not already exist. By
         ## default, Zulip asks the user whether they want to create an
         ## account or try to log in again using another method.
-        # "auto_signup": False,
+        "auto_signup": True,
     }
 }
 
