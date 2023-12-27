@@ -50,6 +50,9 @@ services:
       - "redis:/data:rw"
   zulip:
     # image: "zulip/docker-zulip:8.0-0"
+    extra_hosts:
+      - "zuliptest.com:172.25.143.102"
+      - "auth.zuliptest.com:172.25.143.102"
     restart: unless-stopped
     build:
       context: .
@@ -67,6 +70,7 @@ services:
       DB_HOST: "database"
       DB_HOST_PORT: "5432"
       DB_USER: "zulip"
+      DISABLE_HTTPS: "True"
       SSL_CERTIFICATE_GENERATION: "self-signed"
       SETTING_MEMCACHED_LOCATION: "memcached:11211"
       SETTING_RABBITMQ_HOST: "rabbitmq"
@@ -79,7 +83,7 @@ services:
       SECRETS_memcached_password: "REPLACE_WITH_SECURE_MEMCACHED_PASSWORD"
       SECRETS_redis_password: "REPLACE_WITH_SECURE_REDIS_PASSWORD"
       SECRETS_secret_key: "REPLACE_WITH_SECURE_SECRET_KEY"
-      SETTING_EXTERNAL_HOST: "172.25.143.102"
+      SETTING_EXTERNAL_HOST: "zuliptest.com"
       SETTING_ZULIP_ADMINISTRATOR: "admin@example.com"
       SETTING_EMAIL_HOST: "" # e.g. smtp.example.com
       SETTING_EMAIL_HOST_USER: "noreply@example.com"

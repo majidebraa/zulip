@@ -1,4 +1,5 @@
 import $ from "jquery";
+import Cookies from "js-cookie";
 import _ from "lodash";
 
 import render_inbox_row from "../templates/inbox_view/inbox_row.hbs";
@@ -69,12 +70,20 @@ function get_row_from_conversation_key(key) {
     return $(`#${CONVERSATION_ID_PREFIX}` + CSS.escape(`${key}`));
 }
 
+
+if (!Cookies.get("is_user_change_language") && Cookies.get("django_language") !== "fa" ) {
+    Cookies.set("django_language", "fa");
+    window.location.reload();
+}
+
+
 function save_data_to_ls() {
     ls.set(ls_filter_key, [...filters]);
     ls.set(ls_collapsed_containers_key, [...collapsed_containers]);
 }
 
 export function show() {
+    
     // Avoid setting col_focus to recipient when moving to inbox from other narrows.
     // We prefer to focus entire row instead of stream name for inbox-header.
     // Since inbox-row doesn't has a collapse button, focus on COLUMNS.COLLAPSE_BUTTON

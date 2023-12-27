@@ -55,6 +55,7 @@ function spectator_default_language_modal_post_render() {
 
             const $link = $(e.target).closest("a[data-code]");
             Cookies.set(page_params.language_cookie_name, $link.attr("data-code"));
+            Cookies.set("is_user_change_language",true);
             window.location.reload();
         });
 }
