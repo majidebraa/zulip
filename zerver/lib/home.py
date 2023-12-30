@@ -184,11 +184,12 @@ def build_page_params_for_home_page_load(
     if user_profile is None:
         request_language = request.COOKIES.get(settings.LANGUAGE_COOKIE_NAME, default_language)
     else:
-        request_language = get_and_set_request_language(
-            request,
-            default_language,
-            translation.get_language_from_path(request.path_info),
-        )
+        request_language = request.COOKIES.get(settings.LANGUAGE_COOKIE_NAME, default_language)
+        # request_language = get_and_set_request_language(
+        #     request,
+        #     default_language,
+        #     translation.get_language_from_path(request.path_info),
+        # )
 
     furthest_read_time = get_furthest_read_time(user_profile)
     two_fa_enabled = settings.TWO_FACTOR_AUTHENTICATION_ENABLED and user_profile is not None

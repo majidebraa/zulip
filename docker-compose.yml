@@ -1,4 +1,4 @@
-version: "2"
+version: "3.8"
 services:
   database:
     image: "zulip/zulip-postgresql:14"
@@ -70,7 +70,7 @@ services:
       DB_HOST: "database"
       DB_HOST_PORT: "5432"
       DB_USER: "zulip"
-      DISABLE_HTTPS: "True"
+      DISABLE_HTTPS: "False"
       SSL_CERTIFICATE_GENERATION: "self-signed"
       SETTING_MEMCACHED_LOCATION: "memcached:11211"
       SETTING_RABBITMQ_HOST: "rabbitmq"
